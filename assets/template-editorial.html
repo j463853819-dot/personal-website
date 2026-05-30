@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="{{SITE_DESC}}">
+<title>{{SITE_TITLE}}</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --text: #1C1C1C;
+    --text-secondary: #6B6B6B;
+    --accent: #C44D4D;
+    --rule: #E0DCD5;
+    --card-hover-bg: #F2EDE5;
+    --max-width: 860px;
+    --gap-section: 120px;
+    --font-serif: 'Noto Serif SC', 'Source Han Serif SC', serif;
+    --font-sans: system-ui, -apple-system, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  nav {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 36px 24px 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 36px;
+  }
+  nav a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--accent); }
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  footer {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 100px 24px 56px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  /* Hero */
+  .hero {
+    display: flex;
+    align-items: center;
+    gap: 72px;
+    padding-top: 100px;
+    padding-bottom: var(--gap-section);
+  }
+  .hero-text { flex: 1; }
+  .hero-text h1 {
+    font-family: var(--font-serif);
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+    margin-bottom: 12px;
+  }
+  .hero-text .en-sub {
+    font-family: var(--font-serif);
+    font-size: 14px;
+    color: var(--text-secondary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero-text p {
+    color: var(--text-secondary);
+    font-size: 17px;
+    margin-bottom: 36px;
+    line-height: 1.7;
+  }
+  .hero-text .links { display: flex; gap: 24px; }
+  .hero-text .links a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.03em;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 3px;
+    transition: color 0.2s;
+  }
+  .hero-text .links a:hover { color: var(--accent); }
+  .hero-img {
+    width: 220px;
+    height: 280px;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.05);
+    flex-shrink: 0;
+  }
+
+  /* Section headings */
+  .section-heading {
+    font-family: var(--font-serif);
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 48px;
+    letter-spacing: 0.03em;
+  }
+
+  /* Project cards - grid */
+  .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 36px; }
+  .project-card { transition: opacity 0.25s; }
+  .project-card:hover img { filter: brightness(0.9); }
+  .project-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: filter 0.25s;
+  }
+  .project-card .title {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 600;
+    margin: 16px 0 6px;
+  }
+  .project-card .meta {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+  }
+  .project-card .desc { color: var(--text-secondary); font-size: 14px; line-height: 1.7; }
+  .project-card .tag {
+    display: inline-block;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* Article cards */
+  .article-list { display: flex; flex-direction: column; gap: 32px; }
+  .article-card { display: flex; gap: 28px; align-items: flex-start; }
+  .article-card img {
+    width: 180px;
+    height: 120px;
+    object-fit: cover;
+    flex-shrink: 0;
+    transition: filter 0.25s;
+  }
+  .article-card:hover img { filter: brightness(0.9); }
+  .article-card .info { flex: 1; }
+  .article-card .date {
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .article-card .title {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .article-card .desc { color: var(--text-secondary); font-size: 14px; }
+  .article-card:not(:last-child) { border-bottom: 1px solid var(--rule); padding-bottom: 32px; }
+
+  /* About */
+  .about-block { display: flex; gap: 48px; }
+  .about-block .text { flex: 1; }
+  .about-block p { margin-bottom: 16px; color: var(--text-secondary); font-size: 15px; }
+  .about-block .aside {
+    flex-shrink: 0;
+    font-family: var(--font-serif);
+    font-size: 14px;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+  }
+
+  /* Contact */
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 24px; }
+  .contact-card {
+    cursor: pointer;
+    padding: 32px 24px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid var(--rule);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .contact-card:hover { border-color: var(--accent); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .contact-card .platform-icon { font-size: 32px; margin-bottom: 12px; }
+  .contact-card .platform-name {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .contact-card .platform-hint { font-size: 12px; color: var(--text-secondary); }
+  /* Modal */
+  .qr-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1000;
+    justify-content: center; align-items: center;
+  }
+  .qr-overlay.active { display: flex; }
+  .qr-modal {
+    background: #fff;
+    width: 320px;
+    padding: 40px 32px;
+    text-align: center;
+    position: relative;
+  }
+  .qr-modal .close-btn {
+    position: absolute; top: 12px; right: 16px;
+    background: none; border: none;
+    font-size: 22px; color: var(--text-secondary);
+    cursor: pointer; line-height: 1;
+  }
+  .qr-modal .close-btn:hover { color: var(--text); }
+  .qr-modal .modal-title {
+    font-family: var(--font-serif);
+    font-size: 20px; font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .qr-modal .modal-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 24px; }
+  .qr-modal .qr-img {
+    width: 200px; height: 200px;
+    margin: 0 auto;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: #999;
+  }
+  .qr-modal .qr-label { margin-top: 16px; font-size: 13px; color: var(--text-secondary); }
+
+  @media (max-width: 680px) {
+    :root { --gap-section: 80px; }
+    .hero { flex-direction: column-reverse; gap: 40px; padding-top: 60px; }
+    .hero-text h1 { font-size: 40px; }
+    .hero-img { width: 160px; height: 200px; }
+    .project-grid { grid-template-columns: 1fr; }
+    .article-card { flex-direction: column; }
+    .article-card img { width: 100%; height: auto; }
+    .about-block { flex-direction: column; }
+    nav { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#projects">项目</a>
+  <a href="#articles">文章</a>
+  <a href="#about">关于</a>
+  <a href="#contact">联系</a>
+</nav>
+
+<main>
+  <!-- HERO_HERE -->
+
+  <section id="projects">
+    <div class="section-heading">项目</div>
+    <!-- PROJECTS_HERE -->
+  </section>
+
+  <section id="articles">
+    <div class="section-heading">文章</div>
+    <!-- ARTICLES_HERE -->
+  </section>
+
+  <section id="about">
+    <div class="section-heading">关于</div>
+    <!-- ABOUT_HERE -->
+  </section>
+
+  <section id="contact">
+    <div class="section-heading">联系</div>
+    <div class="contact-grid">
+      <div class="contact-card" data-platform="wechat">
+        <div class="platform-icon">💬</div>
+        <div class="platform-name">微信公众号</div>
+        <div class="platform-hint">扫码关注</div>
+      </div>
+      <div class="contact-card" data-platform="xiaohongshu">
+        <div class="platform-icon">📕</div>
+        <div class="platform-name">小红书</div>
+        <div class="platform-hint">扫码关注</div>
+      </div>
+      <div class="contact-card" data-platform="feishu">
+        <div class="platform-icon">📚</div>
+        <div class="platform-name">飞书知识库</div>
+        <div class="platform-hint">扫码加入</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="qr-overlay" id="qrOverlay">
+    <div class="qr-modal">
+      <button class="close-btn" id="qrClose">&times;</button>
+      <div class="modal-title" id="qrTitle"></div>
+      <div class="modal-sub" id="qrSub"></div>
+      <div class="qr-img" id="qrImage">二维码占位</div>
+      <div class="qr-label" id="qrLabel"></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>{{FOOTER_TEXT}}</p>
+</footer>
+
+<script>
+(function() {
+  var demo = {{DEMO_DATA}};
+
+  if (demo.projects) {
+    var container = (document.getElementById('projects').querySelector('.project-grid') || (function() {
+      var g = document.createElement('div'); g.className = 'project-grid';
+      document.getElementById('projects').appendChild(g);
+      return g;
+    })());
+    container.innerHTML = demo.projects.map(function(p) {
+      return '<div class="project-card">' +
+        (p.image ? '<img src="' + p.image + '" alt="' + p.title + '">' : '') +
+        '<div class="title">' + p.title + '</div>' +
+        '<div class="meta">' + (p.tag || '') + '</div>' +
+        '<div class="desc">' + p.desc + '</div></div>';
+    }).join('');
+  }
+
+  if (demo.articles) {
+    var container = (document.getElementById('articles').querySelector('.article-list') || (function() {
+      var g = document.createElement('div'); g.className = 'article-list';
+      document.getElementById('articles').appendChild(g);
+      return g;
+    })());
+    container.innerHTML = demo.articles.map(function(a) {
+      return '<div class="article-card">' +
+        (a.image ? '<img src="' + a.image + '" alt="' + a.title + '">' : '') +
+        '<div class="info"><div class="date">' + a.date + '</div>' +
+        '<div class="title">' + a.title + '</div>' +
+        '<div class="desc">' + a.summary + '</div></div></div>';
+    }).join('');
+  }
+})();
+
+// QR Code Modal
+(function() {
+  var overlay = document.getElementById('qrOverlay');
+  var title = document.getElementById('qrTitle');
+  var sub = document.getElementById('qrSub');
+  var qrImg = document.getElementById('qrImage');
+  var qrLabel = document.getElementById('qrLabel');
+  var closeBtn = document.getElementById('qrClose');
+
+  var qrData = {
+    wechat: { title: '微信公众号', sub: '互联互说', label: '扫码关注，获取每日 AI 资讯', img: '' },
+    xiaohongshu: { title: '小红书', sub: 'Oli芬', label: '扫码关注，一起探索 AI 应用', img: '' },
+    feishu: { title: '飞书知识库', sub: 'AI Future', label: '扫码加入，获取 AI 前沿研究', img: '' }
+  };
+
+  var cards = document.querySelectorAll('.contact-card');
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      var p = this.dataset.platform;
+      var d = qrData[p] || {};
+      title.textContent = d.title || '';
+      sub.textContent = d.sub || '';
+      qrLabel.textContent = d.label || '';
+      qrImg.innerHTML = '<div style="text-align:center;width:100%"><div style="font-size:60px;margin-bottom:8px">📱</div><div style="font-size:13px;color:#999">' + (d.title || '') + '<br>二维码待上传</div></div>';
+      overlay.classList.add('active');
+    });
+  });
+
+  function closeModal() { overlay.classList.remove('active'); }
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+})();
+</script>
+
+</body>
+</html>

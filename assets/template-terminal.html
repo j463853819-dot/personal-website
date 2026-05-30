@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="{{SITE_DESC}}">
+<title>{{SITE_TITLE}}</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+  :root {
+    --bg: #0A0A0A;
+    --text: #00FF41;
+    --text-dim: #1A7A2E;
+    --dim: var(--text-dim);
+    --text-white: #FFFFFF;
+    --prompt: #555555;
+    --max-width: 680px;
+    --gap-section: 60px;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-mono);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: auto;
+  }
+
+  /* Cursor blink */
+  .cursor::after {
+    content: '';
+    display: inline-block;
+    width: 10px; height: 20px;
+    background: var(--text);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* Typewriter effect */
+  .typewriter { overflow: hidden; white-space: nowrap; }
+  .typewriter.loaded { animation: none; }
+
+  nav {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 28px 20px 0;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  nav a {
+    text-decoration: none;
+    color: var(--text-dim);
+    font-size: 13px;
+    transition: color 0.15s;
+  }
+  nav a::before { content: '$ cd '; color: var(--prompt); }
+  nav a:hover { color: var(--text-white); }
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  footer {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 60px 20px 40px;
+    color: var(--prompt);
+    font-size: 12px;
+    border-top: 1px solid #1A1A1A;
+  }
+
+  .section-cmd { color: var(--text-dim); margin-bottom: 16px; font-size: 13px; }
+  .section-cmd::before { content: '$ '; color: var(--prompt); }
+
+  /* Hero */
+  .hero {
+    padding-top: 60px;
+    padding-bottom: var(--gap-section);
+    border-bottom: 1px solid #1A1A1A;
+    margin-bottom: var(--gap-section);
+  }
+  .hero .cmd { color: var(--text-dim); font-size: 13px; margin-bottom: 20px; }
+  .hero .cmd::before { content: '$ '; color: var(--prompt); }
+  .hero h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-white);
+    margin-bottom: 24px;
+    line-height: 1.4;
+  }
+  .hero .info-line { font-size: 14px; margin-bottom: 6px; }
+  .hero .info-line .label { color: var(--text-dim); }
+  .hero .info-line .value { color: var(--text); }
+  .hero .links { margin-top: 24px; display: flex; gap: 20px; }
+  .hero .links a { color: var(--text-dim); text-decoration: none; font-size: 13px; transition: color 0.15s; }
+  .hero .links a:hover { color: var(--text-white); }
+
+  /* Section headings */
+  .section-heading {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-white);
+    margin-bottom: 20px;
+  }
+
+  /* Project items — file tree style */
+  .project-list { display: flex; flex-direction: column; gap: 8px; }
+  .project-item { font-size: 14px; padding-left: 0; }
+  .project-item .name { color: var(--text); }
+  .project-item .sep { color: var(--text-dim); }
+  .project-item .desc { color: var(--text-dim); }
+
+  /* Article items — file list style */
+  .article-list { display: flex; flex-direction: column; gap: 6px; }
+  .article-item { font-size: 14px; }
+  .article-item .date { color: var(--prompt); }
+  .article-item .title { color: var(--text); }
+  .article-item .summary { color: var(--text-dim); display: block; padding-left: 24px; margin-top: 2px; }
+
+  /* About */
+  .about-block p { margin-bottom: 8px; color: var(--text-dim); font-size: 14px; }
+  .about-block .label { color: var(--text); }
+
+  /* Contact */
+  .contact-links { margin-top: 8px; }
+  .contact-links a { display: block; color: var(--text-dim); text-decoration: none; font-size: 14px; margin-bottom: 4px; transition: color 0.15s; }
+  .contact-links a:hover { color: var(--text-white); }
+  .contact-links a::before { content: '> '; color: var(--prompt); }
+
+  .contact-list { font-family: var(--font-mono); font-size: 14px; line-height: 2; }
+  .contact-list .prompt { color: var(--dim); margin-right: 8px; }
+
+  /* Skills bar — progress bar style */
+  .skill-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; font-size: 13px; }
+  .skill-bar .name { color: var(--text); width: 100px; flex-shrink: 0; }
+  .skill-bar .bar-track {
+    flex: 1;
+    height: 4px;
+    background: #1A1A1A;
+    position: relative;
+  }
+  .skill-bar .bar-fill {
+    height: 100%;
+    background: var(--text);
+  }
+
+  @media (max-width: 500px) {
+    .hero h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#works">projects/</a>
+  <a href="#writing">articles/</a>
+  <a href="#about">about/</a>
+  <a href="#contact">connect/</a>
+</nav>
+
+<main>
+  <!-- HERO_HERE -->
+
+  <section id="works">
+    <div class="section-cmd">ls -la ~/projects/</div>
+    <div class="section-heading">> projects</div>
+    <!-- PROJECTS_HERE -->
+  </section>
+
+  <section id="writing">
+    <div class="section-cmd">ls -lt ~/articles/ | head -6</div>
+    <div class="section-heading">> articles</div>
+    <!-- ARTICLES_HERE -->
+  </section>
+
+  <section id="skills">
+    <div class="section-cmd">top -b -n1 | grep skills</div>
+    <div class="section-heading">> skills</div>
+    <!-- SKILLS_HERE -->
+  </section>
+
+  <section id="about">
+    <div class="section-cmd">cat /etc/hostinfo</div>
+    <div class="section-heading">> about</div>
+    <!-- ABOUT_HERE -->
+  </section>
+
+  <section id="contact">
+    <div class="section-cmd">cat ~/.ssh/authorized_contacts</div>
+    <div class="section-heading">> connect</div>
+    <div class="contact-list">
+      <div><span class="prompt">$</span> wechat --subscribe</div>
+      <div style="margin-left:18px;margin-bottom:8px;font-size:13px;color:var(--dim)">公众号: 互联互说</div>
+      <div><span class="prompt">$</span> xiaohongshu --follow</div>
+      <div style="margin-left:18px;margin-bottom:8px;font-size:13px;color:var(--dim)">小红书: Oli芬</div>
+      <div><span class="prompt">$</span> feishu --join</div>
+      <div style="margin-left:18px;font-size:13px;color:var(--dim)">知识库: AI Future</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span class="cursor"></span> {{FOOTER_TEXT}}
+</footer>
+
+<script>
+(function() {
+  var demo = {{DEMO_DATA}};
+
+  if (demo.projects) {
+    var container = (document.getElementById('works').querySelector('.project-list') || (function() {
+      var g = document.createElement('div'); g.className = 'project-list';
+      document.getElementById('works').appendChild(g);
+      return g;
+    })());
+    container.innerHTML = demo.projects.map(function(p, i) {
+      return '<div class="project-item">' +
+        '<span class="name">├── ' + p.title + '</span>' +
+        ' <span class="sep">/</span> ' +
+        '<span class="desc">' + p.desc + '</span></div>';
+    }).join('');
+  }
+
+  if (demo.articles) {
+    var container = (document.getElementById('writing').querySelector('.article-list') || (function() {
+      var g = document.createElement('div'); g.className = 'article-list';
+      document.getElementById('writing').appendChild(g);
+      return g;
+    })());
+    container.innerHTML = demo.articles.map(function(a) {
+      return '<div class="article-item">' +
+        '<span class="date">[' + a.date + ']</span> ' +
+        '<span class="title">' + a.title + '.md</span>' +
+        '<span class="summary">' + a.summary + '</span></div>';
+    }).join('');
+  }
+})();
+</script>
+
+</body>
+</html>
