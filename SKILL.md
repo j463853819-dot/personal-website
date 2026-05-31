@@ -1,7 +1,6 @@
 ---
 name: personal-website
-description: Guide non-technical users through building a personal website. Interview the user to understand their identity and content needs, then generate a complete static site, optionally backed by Feishu Bitable as CMS, and deploy. Use when a user says "帮我建个个人网站", "做个个人主页", "build me a personal website", "create a portfolio site", "搭个主页", or any request to create a personal brand website.
-agent_created: true
+description: Guide non-technical users through building a personal website. Interview the user to understand their identity and content needs, generate a complete static site from one of several curated templates, and optionally add a safe CMS or deployment path. Use when a user says "帮我建个个人网站", "做个个人主页", "build me a personal website", "create a portfolio site", "搭个主页", or any request to create a personal brand website.
 ---
 
 # Personal Website Builder
@@ -12,8 +11,10 @@ Guide non-technical users through building a personal website end-to-end: interv
 
 - Never ask technical questions first. Start with identity and content.
 - Default to the simplest option that works. Pure HTML/CSS unless the user explicitly wants a framework.
-- The deliverable isn't just a URL — it's a URL plus a clear "how to update" guide.
+- Default to a static site. CMS and hosted deployment are optional enhancements, not prerequisites.
+- The deliverable isn't just a page — it's a working site plus a clear "how to update" guide.
 - When the user struggles to articulate their needs, offer concrete examples and let them pick.
+- For the first version, keep one coherent template style instead of mixing palettes, fonts, and layouts. Users can ask for later iterations after the first version is working.
 
 ## When NOT to Use This Skill
 
@@ -49,8 +50,9 @@ This determines data volume, which feeds into the CMS decision.
 |-----------|-------------------|
 | Daily / Weekly | Feishu Bitable CMS (dynamic content) |
 | Monthly or less | Static (regenerate when needed) |
+| Not sure | Static first, with CMS noted as a later upgrade |
 
-If "not sure" or unclear, **default to Feishu Bitable CMS** — it's easier to not use the CMS than to retrofit one later.
+If "not sure" or unclear, **default to Static**. Non-technical users should get a working first version with zero account setup. Mention that CMS can be added later if frequent updates become real.
 
 ### Phase 1.5: Structure Confirmation (MANDATORY)
 
@@ -89,10 +91,12 @@ Present two paths based on the Q4 answer:
 **Path B: 飞书多维表格 CMS** — Content lives in a Feishu table. Update content in Feishu, site refreshes automatically.
 
 Explain the tradeoff:
-- Path A is simpler, no Feishu account needed, fewer moving parts. Good for infrequent updates.
-- Path B requires a Feishu account and API setup, but lets the user (or their team) update content without touching code — ever.
+- Path A is simpler, no Feishu account needed, no secrets, fewer moving parts. Best default for a first version.
+- Path B is for frequent updates and requires Feishu account setup, an app or integration, permissions, and a safe API access layer.
 
 Ask the user to choose. If they pick Path B, check Feishu readiness: "你有飞书账号吗？需要先在飞书开放平台创建一个应用并开通多维表格权限。现在方便操作吗？"
+
+**CMS safety rule:** Never put Feishu `app_secret`, access tokens, or other private credentials into browser-side HTML/JS. If using Feishu Bitable as CMS, use a serverless function, backend proxy, prebuild script, or another safe read layer. If no safe layer is available, deliver the static version and a CMS setup guide instead.
 
 ### Phase 3: Visual Style
 
@@ -105,7 +109,9 @@ Show all six style options as concise Chinese descriptions:
 5. **赛博霓虹** — 深黑底色、青/紫/品红霓虹发光、科技标签云。像黑客搭建的终端站，酷而不刺眼。适合技术创作者。
 6. **旅程叙事** — 大地色系、时间线布局、叙事引导。不是冷冰冰的项目列表，是一条走过的路。适合想讲故事的创作者。
 
-Ask: "这六种风格你喜欢哪个方向？也可以组合描述，比如'黑白极简但带一点旅程叙事的时间线'之类的"
+Ask: "这六种风格你喜欢哪个方向？第一版建议先选一种完整风格，保证能快速做出稳定版本。上线后你还可以继续让我调配色、换细节。"
+
+If the user asks to mix styles before the first version exists, choose the closest single template and say: "我先用这个方向出第一版，保证页面完整可用。第一版出来后，我们再微调配色和细节。"
 
 ### Phase 4: Tech Stack
 
@@ -143,7 +149,7 @@ Only offer React or Vue if the user explicitly mentions wanting a framework or i
 | `<!-- ABOUT_HERE -->` | About content block (text paragraphs + skills/aside column) |
 | `<!-- PROJECTS_HERE -->` / `<!-- WORKS_HERE -->` | Project cards grid (image + title + tag + description for each) |
 | `<!-- ARTICLES_HERE -->` | Article list (date + title + summary for each, with thumbnails if present) |
-| `<!-- CONTACT_HERE -->` | Contact section (see Contact section guidance below) |
+| `<!-- CONTACT_HERE -->` | Optional extra contact content when the template exposes this marker |
 | `{{SITE_TITLE}}` | Browser tab title |
 | `{{SITE_DESC}}` | Meta description (120-160 chars) |
 | `{{FOOTER_TEXT}}` | Footer copyright line |
@@ -152,22 +158,34 @@ Only offer React or Vue if the user explicitly mentions wanting a framework or i
 **Template-specific placeholders:**
 - Terminal style: additional `<!-- SKILLS_HERE -->` placeholder for skill tags
 - Journey style: additional `<!-- NARRATIVE_HERE -->` placeholder for the narrative intro paragraph
+- Some templates include a built-in contact card grid after `<!-- CONTACT_HERE -->`. In that case, fill only the marker with a short intro or leave it empty, then replace the built-in card labels/data with the user's real contact channels.
+- Terminal style uses `#writing` for the article section instead of `#articles`; keep internal navigation consistent with the chosen template.
 
 **Contact section guidance:**
 
-Default approach: **card grid + QR code modal** (three cards: 微信公众号 / 小红书 / 飞书知识库). Use `.contact-grid` + `.contact-card` classes. Each card has:
+Default approach: **contact card grid** using the channels the user actually provides. Common options:
+- Email
+- GitHub
+- X / Twitter
+- LinkedIn
+- 微信 / 微信公众号
+- 小红书
+- 飞书知识库
+- Newsletter
+
+Use `.contact-grid` + `.contact-card` classes when the template provides them. Each card has:
 - Platform icon (emoji)
 - Platform name
-- Hint text ("扫码关注")
+- Hint text ("发邮件", "查看 GitHub", "扫码关注", "阅读文章", etc.)
 
-Clicking a card opens a modal (`.qr-overlay` + `.qr-modal`) showing:
+If the contact channel has a QR code, clicking a card can open a modal (`.qr-overlay` + `.qr-modal`) showing:
 - Platform title + subtitle
 - QR code image placeholder (swap when user provides real QR images)
 - Descriptive label
 
 The modal supports: click-to-close, X button close, Escape key close.
 
-If the user has NO Chinese social platforms, fall back to a simple `.contact-links` approach with email and other links.
+If the user has no QR-based channels, use normal links and do not show QR modal behavior.
 
 - Replace `{{SITE_TITLE}}`, `{{SITE_DESC}}`, `{{FOOTER_TEXT}}`, `{{DEMO_DATA}}` with actual values
 - Template's CSS is the authoritative design source — do NOT add custom inline styles
@@ -182,9 +200,11 @@ If the user has NO Chinese social platforms, fall back to a simple `.contact-lin
 **Step 5.3 — Bitable CMS path (Path B):**
 - Fill `{{DEMO_DATA}}` with sample data for fallback display
 - Also create a Feishu Bitable with the appropriate fields matching the content inventory from Q3
-- Wire the API: the template's JS demo block serves as a reference for field names and rendering
-- Include a `setup.md` that explains how to configure app_id, app_secret, base_id, table_id
-- Modify the JS to fetch from Bitable API, with the demo block as fallback when API is unreachable
+- Do NOT expose Feishu credentials in frontend code
+- If a safe serverless/backend/proxy layer is available, wire the frontend to that public read endpoint
+- If no safe layer is available, keep the generated site static and include a `setup.md` describing how to add CMS later
+- Include a `setup.md` that explains required values such as app_id, app_secret, base_id, table_id, and where those values must be stored safely
+- Keep the demo block as fallback when the CMS endpoint is unreachable
 
 **Design rules (built into templates — do NOT override):**
 - Mobile-first responsive design
@@ -208,12 +228,13 @@ Do NOT skip this. Fix P0 issues before proceeding to deploy.
 
 ### Phase 6: Deploy
 
-Deploy using the cloudstudio-deploy skill:
+Deployment is optional. Always make sure the site works locally first.
 
 1. Create a deployment directory (e.g., `dist/` or `build/`)
 2. Place all site files there
-3. Deploy via CloudStudio
-4. Provide the URL to the user
+3. If a deployment tool is available, deploy to the user's preferred target: CloudStudio, GitHub Pages, Vercel, Netlify, or another static host
+4. If no deployment tool is available, provide the local `dist/index.html` path and simple hosting guidance
+5. Provide the URL when deployment succeeds
 
 ### Phase 7: Handoff Guide
 
@@ -228,13 +249,15 @@ Generate a concise `HOW_TO_UPDATE.md` file and deliver it alongside the site URL
 - Which columns map to which parts of the website
 - How to add/edit/delete records
 - How the "状态" or "published" field controls visibility on the site
-- That changes appear on the site within seconds (API reads on page load)
+- How the safe CMS read layer works
+- How quickly changes appear on the site, depending on the chosen integration
 
 ### Phase 8: Summary
 
 After deployment, present a summary:
 
 - Live URL
+- Local output path
 - CMS path chosen (if Bitable: table name and key fields)
 - How to update content (brief)
 - One thing they should do next (e.g., "换掉那张示例头像", "填上真实的联系方式")

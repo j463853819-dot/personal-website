@@ -275,20 +275,20 @@
     <div class="section-heading">// 联系</div>
     <!-- CONTACT_HERE -->
     <div class="contact-grid">
-      <div class="contact-card" data-platform="wechat">
-        <div class="platform-icon">💬</div>
-        <div class="platform-name">微信公众号</div>
-        <div class="platform-hint">扫码关注</div>
+      <div class="contact-card" data-platform="email">
+        <div class="platform-icon">✉️</div>
+        <div class="platform-name">Email</div>
+        <div class="platform-hint">发送邮件</div>
       </div>
-      <div class="contact-card" data-platform="xiaohongshu">
-        <div class="platform-icon">📕</div>
-        <div class="platform-name">小红书</div>
-        <div class="platform-hint">扫码关注</div>
+      <div class="contact-card" data-platform="github">
+        <div class="platform-icon">💻</div>
+        <div class="platform-name">GitHub</div>
+        <div class="platform-hint">查看作品</div>
       </div>
-      <div class="contact-card" data-platform="feishu">
-        <div class="platform-icon">📚</div>
-        <div class="platform-name">飞书知识库</div>
-        <div class="platform-hint">扫码加入</div>
+      <div class="contact-card" data-platform="newsletter">
+        <div class="platform-icon">📬</div>
+        <div class="platform-name">Newsletter</div>
+        <div class="platform-hint">订阅更新</div>
       </div>
     </div>
   </section>
@@ -352,9 +352,9 @@
   var closeBtn = document.getElementById('qrClose');
 
   var qrData = {
-    wechat: { title: '微信公众号', sub: '互联互说', label: '扫码关注，获取每日 AI 资讯', img: '' },
-    xiaohongshu: { title: '小红书', sub: 'Oli芬', label: '扫码关注，一起探索 AI 应用', img: '' },
-    feishu: { title: '飞书知识库', sub: 'AI Future', label: '扫码加入，获取 AI 前沿研究', img: '' }
+    email: { title: 'Email', sub: 'your-name@example.com', label: '替换为真实邮箱或 mailto 链接', img: '' },
+    github: { title: 'GitHub', sub: 'github.com/your-name', label: '替换为真实 GitHub 或作品链接', img: '' },
+    newsletter: { title: 'Newsletter', sub: 'your newsletter link', label: '替换为真实订阅链接或二维码', img: '' }
   };
 
   var cards = document.querySelectorAll('.contact-card');

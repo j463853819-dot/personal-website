@@ -74,6 +74,25 @@ Primary CTA: Follow or connect.
 - CTA button in nav: e.g., "联系我", "看作品", "订阅"
 - Footer: copyright, social links, back to top
 
+## Contact Channels
+
+Choose contact channels from what the user actually provides. Do not assume Chinese social platforms by default.
+
+Common options:
+
+| Channel | Display Pattern |
+|---------|-----------------|
+| Email | Direct mail link |
+| GitHub | Profile/repository link |
+| LinkedIn | Profile link |
+| X / Twitter | Profile link |
+| 微信 / 微信公众号 | QR card if a QR image is provided; otherwise text instruction |
+| 小红书 | Profile link or QR card |
+| 飞书知识库 | Public document/wiki link |
+| Newsletter | Subscribe link |
+
+If the user provides no contact channel, use a simple email placeholder only after asking once.
+
 ## Content Types & Data Modeling
 
 For Feishu Bitable CMS, map content types to table fields:
@@ -117,3 +136,5 @@ Template renders: `p.title` → `.project-card .title`, `p.tag` → `.project-ca
 Template renders: `a.date` → `.article-card .date`, `a.title` → `.article-card .title`, `a.summary` → `.article-card .desc`, `a.image` → `<img src>`
 
 **Bitable CMS mapping:** When configuring the Feishu Bitable API, map the table column names to these JS keys — the API response must be transformed to match these field names before feeding into the template's render loop.
+
+Security note: never expose Feishu `app_secret`, access tokens, or private table permissions in browser-side code. Use a safe serverless/backend/proxy layer, a prebuild script, or generate static HTML from the Bitable data before deployment.

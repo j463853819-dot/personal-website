@@ -2,9 +2,9 @@
 
 Six visual styles for personal websites, each anchored to real-world references. Apply the chosen style to all generated pages.
 
-## Hard Constraints (ALL styles)
+## First-Version Style Constraints (ALL styles)
 
-These rules protect aesthetic consistency. Do NOT override them, even if the user asks.
+These rules protect aesthetic consistency while generating the first working version. The goal is to avoid half-custom designs that look unfinished. After the first version works, users can ask for iterative color, typography, or layout adjustments.
 
 ### Color — Presets Only
 
@@ -15,9 +15,13 @@ Each style defines a **fixed color palette**. You may NOT:
 
 If the user wants a different color feel, suggest a different style or a natural-language tweak within the style's palette (e.g. "杂志风但暖色再淡一点" → pick the lighter warm white from the editorial palette range).
 
+For later iterations after the first version is generated, custom palette changes are allowed if the user explicitly asks. Keep contrast, readability, and mobile layout intact.
+
 ### Typography — Font Family is Non-Negotiable
 
 Each style specifies exact font families. Do NOT swap them. If the user says "换个字体", ask which style's typography they prefer and switch the whole style — do not patch a single font into another style's system.
+
+For later iterations, a font swap is acceptable only when it preserves the chosen style's hierarchy and the user understands it changes the visual system.
 
 ### Template is Authoritative
 
@@ -27,6 +31,8 @@ The `assets/template-*.html` file is the single source of truth for CSS, breakpo
 - Do NOT modify responsive breakpoints
 
 If a layout need isn't covered by the template, adapt the content to fit existing structures rather than extending the template.
+
+After first delivery, treat template changes as an explicit design iteration rather than part of the initial generation step.
 
 ---
 

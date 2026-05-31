@@ -22,6 +22,7 @@ After generating the site and before deploying, run through this checklist. P0 i
 - [ ] **Spacing is consistent**: section margins follow the template's rules. No random 20px gaps next to 120px gaps
 - [ ] **Emoji render**: test on at least 2 platforms (macOS Chrome + iOS Safari). Emoji in page titles and headings appear correctly
 - [ ] **Loading state**: if using Bitable CMS path, there's a visible loading state while API fetches. Demo data kicks in within 3 seconds if API fails
+- [ ] **No private data in frontend**: if using CMS, frontend code contains no app secrets, access tokens, private document URLs, or personal credentials
 - [ ] **Print-friendly**: `@media print` hides navigation and shows clean content (built into templates, just verify)
 
 ## P2 — Polish (nice to have)
@@ -34,7 +35,8 @@ After generating the site and before deploying, run through this checklist. P0 i
 
 ## Bitable CMS Path — Extra Checks
 
-- [ ] **setup.md is clear**: explains app_id, app_secret, base_id, table_id in plain Chinese
-- [ ] **Field names match**: JS fetch code uses the exact field names from the Bitable. No typos in JSON keys
+- [ ] **setup.md is clear**: explains app_id, app_secret, base_id, table_id in plain Chinese, and says where secrets must be stored safely
+- [ ] **No direct secret exposure**: app_secret and tokens are stored in a serverless/backend/proxy/prebuild environment, never in `index.html`
+- [ ] **Field names match**: JS fetch code or the safe data endpoint uses the exact field names from the Bitable. No typos in JSON keys
 - [ ] **Demo data reflects real content**: the fallback demo data in `{{DEMO_DATA}}` matches the user's actual profile, not generic placeholders
 - [ ] **Error state handled**: if API returns 401/403/500, the page doesn't break — falls back to demo data gracefully
