@@ -72,6 +72,8 @@ Build me a personal portfolio site.
 ### 可选 CMS
 适合每天或每周都更新文章、项目、资源列表的人。可以接入飞书多维表格等内容源，但必须通过安全的后端、Serverless Function、代理接口或构建脚本读取数据。
 
+如果选择飞书多维表格作为 CMS，可参考这份文档的第六部分，里面有详细操作步骤：[飞书多维表格对接说明](https://my.feishu.cn/wiki/OxM1wqyftiDueGkMYICcw00EnMb?from=from_copylink)。
+
 不要把飞书 `app_secret`、访问令牌或任何私密配置写进前端 HTML/JS。只配置飞书表格并不等于可以安全上线。
 
 ---
