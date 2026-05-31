@@ -1,6 +1,6 @@
-# personal-website
+# Personal Website Builder
 
-> 一个 WorkBuddy Skill — 让非技术用户用对话就能搭建个人网站，无需代码。
+> 一套面向 AI 助手的通用个人网站生成工作流。让非技术用户通过对话搭建个人网站，无需自己写代码。
 
 对话式建站：回答几个关于你是谁、你有什么内容的问题，AI 帮你选风格、搭结构、填内容，生成一个可直接打开和部署的静态个人网站。如果需要持续更新而不碰代码，可选接入 CMS。
 
@@ -29,13 +29,11 @@
 
 ## 安装与使用
 
-把 `personal-website` 文件夹复制到你的 Codex skills 目录，例如：
+把 `personal-website` 文件夹放进你正在使用的 AI 工具所支持的本地技能、工作流或自定义指令目录中。
 
-```bash
-~/.codex/skills/personal-website
-```
+如果你的 AI 工具支持加载本地 skill/workflow，直接加载这个目录即可。如果不支持，也可以把 `SKILL.md` 作为主工作流说明，把 `references/` 和 `assets/` 作为配套资料与模板使用。
 
-然后对 Codex 说：
+然后对你的 AI 助手说：
 
 ```text
 帮我建一个个人网站。

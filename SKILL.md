@@ -16,9 +16,9 @@ Guide non-technical users through building a personal website end-to-end: interv
 - When the user struggles to articulate their needs, offer concrete examples and let them pick.
 - For the first version, keep one coherent template style instead of mixing palettes, fonts, and layouts. Users can ask for later iterations after the first version is working.
 
-## When NOT to Use This Skill
+## When NOT to Use This Workflow
 
-This skill builds personal portfolio/brand sites. It is NOT suitable for:
+This workflow builds personal portfolio/brand sites. It is NOT suitable for:
 
 - **E-commerce** — shopping carts, payments, order management, inventory systems. Wrong tool.
 - **Community / forums** — user registration, commenting systems, real-time chat. Way beyond scope.
