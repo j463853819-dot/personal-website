@@ -30,9 +30,32 @@ If the user's request falls into any of these, say so directly: "这个我不太
 
 ## Workflow
 
-### Phase 1: Identity Interview (3-4 questions)
+### Phase 0: Triage and Fit
 
-Ask these questions one at a time. Do not firehose.
+First decide whether this workflow is the right fit.
+
+Good fits:
+- Personal homepage / internet business card
+- Portfolio / works showcase
+- Developer profile
+- Writer or creator homepage
+- Consultant / freelancer service page
+- Lightweight personal brand site
+
+Poor fits are listed in "When NOT to Use This Workflow". If the request is out of scope, explain the boundary and offer a simpler personal-site version if useful.
+
+### Phase 1: Intake Interview
+
+Read `references/intake.md` before asking questions.
+
+Ask questions one at a time. Do not firehose. Start with the six core questions:
+
+1. Who are you?
+2. Who is the site for?
+3. What should visitors do after viewing it?
+4. What content and assets do you already have?
+5. How often will you update it?
+6. Which visual direction do you prefer?
 
 **Q1 — Identity:** "先聊聊你是谁——你是做什么的？设计师、工程师、博主、创业者，还是其他？"
 
@@ -53,6 +76,22 @@ This determines data volume, which feeds into the CMS decision.
 | Not sure | Static first, with CMS noted as a later upgrade |
 
 If "not sure" or unclear, **default to Static**. Non-technical users should get a working first version with zero account setup. Mention that CMS can be added later if frequent updates become real.
+
+If the user already provides enough information, infer reasonable defaults and continue. Do not block on perfect answers.
+
+### Phase 1.2: Decision Mapping
+
+Read `references/decision-rules.md`.
+
+Map the user's answers to:
+
+- Site type: business card, portfolio, developer profile, writer homepage, service page, narrative profile, or mixed general site
+- Recommended structure
+- Recommended template style
+- Update path: static first or optional CMS
+- Deployment suggestion
+
+If the mapping is ambiguous, propose one recommended path and one alternative. Keep the recommendation concrete.
 
 ### Phase 1.5: Structure Confirmation (MANDATORY)
 
@@ -97,6 +136,21 @@ Explain the tradeoff:
 Ask the user to choose. If they pick Path B, check Feishu readiness: "你有飞书账号吗？需要先在飞书开放平台创建一个应用并开通多维表格权限。现在方便操作吗？"
 
 **CMS safety rule:** Never put Feishu `app_secret`, access tokens, or other private credentials into browser-side HTML/JS. If using Feishu Bitable as CMS, use a serverless function, backend proxy, prebuild script, or another safe read layer. If no safe layer is available, deliver the static version and a CMS setup guide instead.
+
+### Phase 2.5: Asset Plan
+
+Read `references/assets.md`.
+
+Inventory the user's materials:
+
+- Avatar or profile photo
+- Project images or screenshots
+- Article covers
+- Logos or client marks
+- Contact links
+- QR codes, only if the user provides them
+
+If assets are missing, use the chosen template's no-image layout or tasteful placeholders. Do not invent real photos, logos, client marks, or QR codes.
 
 ### Phase 3: Visual Style
 
@@ -223,6 +277,7 @@ Before deploying, run through `references/checklist.md`. Focus on P0 items:
 - CTA visible above fold on mobile
 - No broken internal anchor links
 - If site is in Chinese, no stray English labels
+- No leftover placeholders such as `your-name@example.com`, `github.com/your-name`, `{{SITE_TITLE}}`, or `{{DEMO_DATA}}`
 
 Do NOT skip this. Fix P0 issues before proceeding to deploy.
 

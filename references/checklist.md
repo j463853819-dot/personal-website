@@ -6,12 +6,15 @@ After generating the site and before deploying, run through this checklist. P0 i
 
 ## P0 — Blockers (must fix before deploy)
 
+- [ ] **User goal reflected**: hero, CTA, and first content section match the user's stated audience and visitor action
+- [ ] **Structure confirmed**: generated sections match the structure confirmed with the user
 - [ ] **Meta tags complete**: `<title>`, `<meta name="description">`, `<meta charset="utf-8">`, `<meta name="viewport">` all present
 - [ ] **Mobile renders correctly**: tested at 375px wide. No horizontal scroll, no text overflow, no elements wider than viewport
 - [ ] **Images don't break layout**: all `<img>` have explicit `width`/`height` or CSS `max-width: 100%`. No image exceeds container
 - [ ] **CTA is visible above fold on mobile**: the primary CTA button/link from Phase 1 Q2 is visible without scrolling on a phone
 - [ ] **No broken links**: all internal anchor links (`href="#projects"`, etc.) point to valid section IDs
 - [ ] **No English on a Chinese site**: check for stray "Projects", "About", "Contact" labels on sites meant to be in Chinese
+- [ ] **No placeholders left**: no `your-name@example.com`, `github.com/your-name`, `your newsletter link`, `二维码待上传`, `{{SITE_TITLE}}`, `{{SITE_DESC}}`, or `{{DEMO_DATA}}`
 
 ## P1 — Quality (should fix before deploy)
 
